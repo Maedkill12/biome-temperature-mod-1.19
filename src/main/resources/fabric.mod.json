@@ -20,6 +20,9 @@
   "entrypoints": {
     "main": [
       "net.maed.biomestemperature.BiomesTemperature"
+    ],
+    "client": [
+      "net.maed.biomestemperature.ModClient"
     ]
   },
   "mixins": [

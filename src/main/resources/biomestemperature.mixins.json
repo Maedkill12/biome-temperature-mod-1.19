@@ -4,9 +4,12 @@
   "package": "net.maed.biomestemperature.mixin",
   "compatibilityLevel": "JAVA_17",
   "mixins": [
+    "PlayerEntityMixin",
+    "PlayerInventoryMixin"
   ],
   "client": [
-    "ExampleMixin"
+    "ExampleMixin",
+    "MinecraftClientMixin"
   ],
   "injectors": {
     "defaultRequire": 1
