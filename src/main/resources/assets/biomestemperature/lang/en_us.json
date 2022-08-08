@@ -1,4 +1,8 @@
 {
   "death.attack.hot": "%1$s died of heat",
-  "death.attack.hot.player": "%1$s died of heat by %2$s"
+  "death.attack.hot.player": "%1$s died of heat by %2$s",
+
+  "key.biome.temperature.category": "Biomes Temperature",
+  "key.temperature.scale": "Change Scale",
+  "temperature.scale.changed": "Temperature scale changed to %1$s"
 }

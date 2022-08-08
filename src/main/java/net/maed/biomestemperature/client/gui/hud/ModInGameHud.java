@@ -3,6 +3,7 @@ package net.maed.biomestemperature.client.gui.hud;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.maed.biomestemperature.BiomesTemperature;
 import net.maed.biomestemperature.biome.WorldTemperatureManager;
+import net.maed.biomestemperature.config.Configs;
 import net.maed.biomestemperature.util.IPlayerData;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawableHelper;
@@ -145,7 +146,19 @@ public class ModInGameHud extends DrawableHelper {
 
         this.drawTexture(matrices, x, y, 0, 0, 16 * scale, 32 * scale, 16 * scale, 32 * scale);
 
-        Text text = Text.literal(DECIMAL_FORMAT.format(WorldTemperatureManager.currentAmbientTemperature) + " °C");
+        String formatted = "";
+        switch (Configs.TEMPERATURE_SCALE) {
+            case 1:
+                formatted = DECIMAL_FORMAT.format(celsiusToFahrenheit(WorldTemperatureManager.currentAmbientTemperature)) + " °F";
+                break;
+            case 2:
+                formatted = DECIMAL_FORMAT.format(celsiusToKelvin(WorldTemperatureManager.currentAmbientTemperature)) + " K";
+                break;
+            default:
+                formatted = DECIMAL_FORMAT.format(WorldTemperatureManager.currentAmbientTemperature) + " °C";
+        }
+
+        Text text = Text.literal(formatted);
         this.client.textRenderer.drawWithShadow(matrices, text, x + 10, y + 64, 0xFFFFFF);
     }
 
@@ -184,6 +197,14 @@ public class ModInGameHud extends DrawableHelper {
         RenderSystem.depthMask(true);
         RenderSystem.enableDepthTest();
         RenderSystem.setShaderColor(1.0f, 1.0f, 1.0f, 1.0f);
+    }
+
+    private float celsiusToFahrenheit(float temp) {
+        return temp * 9 / 5 + 32;
+    }
+
+    private float celsiusToKelvin(float temp) {
+        return temp + 273.15f;
     }
 
     enum HeartType  {

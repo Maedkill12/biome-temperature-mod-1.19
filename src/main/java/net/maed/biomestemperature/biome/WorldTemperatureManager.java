@@ -17,7 +17,7 @@ public class WorldTemperatureManager {
     private static float biomeTemperature = 0;
     private static float ambientTemperature = 0;
     public static float currentAmbientTemperature = 0;
-    private static final float  DELTA_HEIGHT = 0.25f;
+    private static final float  DELTA_HEIGHT = 0.35f;
 
     public static void update(IPlayerData playerData) {
         PlayerEntity player = (PlayerEntity) playerData;

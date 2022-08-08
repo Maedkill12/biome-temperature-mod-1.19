@@ -1,6 +1,7 @@
 package net.maed.biomestemperature;
 
 import net.fabricmc.api.ModInitializer;
+import net.maed.biomestemperature.config.Configs;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -11,7 +12,7 @@ public class BiomesTemperature implements ModInitializer {
 
 	@Override
 	public void onInitialize() {
-
+		Configs.registerConfigs();
 
 	}
 }

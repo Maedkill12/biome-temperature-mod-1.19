@@ -4,6 +4,7 @@ import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.rendering.v1.HudRenderCallback;
 import net.maed.biomestemperature.client.gui.hud.HudOverlay;
 import net.maed.biomestemperature.client.gui.hud.ModInGameHud;
+import net.maed.biomestemperature.event.KeyInputHandler;
 import net.maed.biomestemperature.networking.Packet;
 import net.minecraft.client.MinecraftClient;
 
@@ -13,6 +14,7 @@ public class ModClient implements ClientModInitializer {
     @Override
     public void onInitializeClient() {
         modInGameHud = new ModInGameHud(MinecraftClient.getInstance());
+        KeyInputHandler.register();
 
         Packet.registerS2CPackets();
 

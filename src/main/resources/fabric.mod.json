@@ -4,13 +4,13 @@
   "version": "${version}",
 
   "name": "Biomes Temperature Mod",
-  "description": "This is an example description! Tell everyone what your mod is about!",
+  "description": "This mod add temperature for biomes, weather, night and day",
   "authors": [
     "Maed_12"
   ],
   "contact": {
-    "homepage": "https://fabricmc.net/",
-    "sources": "https://github.com/FabricMC/fabric-example-mod"
+    "homepage": "https://twitter.com/maedkill12",
+    "sources": "https://github.com/Maedkill12/biome-temperature-mod-1.19"
   },
 
   "license": "MIT LICENSE",
