@@ -149,13 +149,13 @@ public class ModInGameHud extends DrawableHelper {
         String formatted = "";
         switch (Configs.TEMPERATURE_SCALE) {
             case 1:
-                formatted = DECIMAL_FORMAT.format(celsiusToFahrenheit(WorldTemperatureManager.currentAmbientTemperature)) + " °F";
+                formatted = DECIMAL_FORMAT.format(celsiusToFahrenheit(playerData.getTemperatureManager().currentAmbientTemperature)) + " °F";
                 break;
             case 2:
-                formatted = DECIMAL_FORMAT.format(celsiusToKelvin(WorldTemperatureManager.currentAmbientTemperature)) + " K";
+                formatted = DECIMAL_FORMAT.format(celsiusToKelvin(playerData.getTemperatureManager().currentAmbientTemperature)) + " K";
                 break;
             default:
-                formatted = DECIMAL_FORMAT.format(WorldTemperatureManager.currentAmbientTemperature) + " °C";
+                formatted = DECIMAL_FORMAT.format(playerData.getTemperatureManager().currentAmbientTemperature) + " °C";
         }
 
         Text text = Text.literal(formatted);

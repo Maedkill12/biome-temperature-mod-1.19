@@ -14,8 +14,6 @@ import net.minecraft.inventory.Inventory;
 import net.minecraft.inventory.InventoryChangedListener;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
-import net.minecraft.text.Text;
-import net.minecraft.util.collection.DefaultedList;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
@@ -29,10 +27,12 @@ public abstract class PlayerEntityMixin implements IPlayerData, InventoryChanged
 
     @Shadow public abstract PlayerInventory getInventory();
 
-    private NbtCompound persistentData;
-    private DataTracker customData;
     private static final TrackedData<Integer> FROZEN = DataTracker.registerData(PlayerEntity.class, TrackedDataHandlerRegistry.INTEGER);
     private static final TrackedData<Integer> HEAT_TICK = DataTracker.registerData(PlayerEntity.class, TrackedDataHandlerRegistry.INTEGER);
+
+    private NbtCompound persistentData;
+    private DataTracker customData;
+    private WorldTemperatureManager worldTemperatureManager;
 
     private int syncedHeat;
     private int syncedFrozen;
@@ -45,11 +45,13 @@ public abstract class PlayerEntityMixin implements IPlayerData, InventoryChanged
         customData = new DataTracker((PlayerEntity) getInstance());
         customData.startTracking(FROZEN, 0);
         customData.startTracking(HEAT_TICK, 0);
+
+        worldTemperatureManager = new WorldTemperatureManager();
     }
 
     @Inject(method = "tick", at = @At("TAIL"))
     private void onTick(CallbackInfo info) {
-        WorldTemperatureManager.update(getInstance());
+        worldTemperatureManager.update(getInstance());
     }
 
     @Inject(method = "readCustomDataFromNbt", at = @At("TAIL"))
@@ -136,6 +138,11 @@ public abstract class PlayerEntityMixin implements IPlayerData, InventoryChanged
     @Override
     public void setSyncedFrozen(int syncedFrozen) {
         this.syncedFrozen = syncedFrozen;
+    }
+
+    @Override
+    public WorldTemperatureManager getTemperatureManager() {
+        return worldTemperatureManager;
     }
 
     @Override

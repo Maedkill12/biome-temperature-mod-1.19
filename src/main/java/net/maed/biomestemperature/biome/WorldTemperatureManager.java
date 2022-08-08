@@ -9,20 +9,22 @@ import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.world.Difficulty;
 import net.minecraft.world.LightType;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
 
 public class WorldTemperatureManager {
-    private static float biomeTemperature = 0;
-    private static float ambientTemperature = 0;
-    public static float currentAmbientTemperature = 0;
+    private float biomeTemperature = 0;
+    private float ambientTemperature = 0;
+    public float currentAmbientTemperature = 0;
     private static final float  DELTA_HEIGHT = 0.35f;
 
-    public static void update(IPlayerData playerData) {
+    public void update(IPlayerData playerData) {
         PlayerEntity player = (PlayerEntity) playerData;
         World world = player.world;
         if (!world.isClient) {
+            Difficulty difficulty = world.getDifficulty();
             Biome biome = world.getBiome(player.getBlockPos()).value();
 
             biomeTemperature = biome.getTemperature() * 32f;
@@ -57,7 +59,7 @@ public class WorldTemperatureManager {
             playerData.setCustomFrozenTick(frozenTick);
             player.setFrozenTicks(playerData.getCustomFrozenTick());
 
-            if (player.isFrozen()) {
+            if (player.isFrozen() && (difficulty == Difficulty.NORMAL || difficulty == Difficulty.HARD )) {
                 player.damage(DamageSource.FREEZE, 0.5f);
             }
 
@@ -70,7 +72,7 @@ public class WorldTemperatureManager {
 
             playerData.setCustomHeatTick(heatTick);
 
-            if (playerData.hasHeat()) {
+            if (playerData.hasHeat() && (difficulty == Difficulty.NORMAL || difficulty == Difficulty.HARD )) {
                 player.damage(ModDamageSource.HOT, 0.5f);
             }
 

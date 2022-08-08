@@ -1,5 +1,6 @@
 package net.maed.biomestemperature.util;
 
+import net.maed.biomestemperature.biome.WorldTemperatureManager;
 import net.minecraft.nbt.NbtCompound;
 
 public interface IPlayerData {
@@ -8,6 +9,7 @@ public interface IPlayerData {
     }
 
     NbtCompound getPersistentData();
+    WorldTemperatureManager getTemperatureManager();
 
     int getCustomFrozenTick();
     void setCustomFrozenTick(int value);
